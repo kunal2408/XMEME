@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/kraut3036-ME_BUILDOUT_XMEME_JAVA.iml" filepath="$PROJECT_DIR$/.idea/kraut3036-ME_BUILDOUT_XMEME_JAVA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-starter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-starter.main.iml" />
     </modules>
   </component>
 </project>

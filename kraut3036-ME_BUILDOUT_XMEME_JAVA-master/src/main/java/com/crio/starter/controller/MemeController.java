@@ -1,20 +1,10 @@
 package com.crio.starter.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import com.crio.starter.data.MemeEntity;
-import com.crio.starter.exchange.MemeRequest;
-import com.crio.starter.exchange.MemeResponse;
+import com.crio.starter.entity.MemeEntity;
 import com.crio.starter.service.MemeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/memes")
@@ -26,20 +16,25 @@ public class MemeController {
     this.memeService = memeService;
   }
 
-  @PostMapping("/")
-  @ResponseStatus(HttpStatus.CREATED)
-  public MemeResponse createMeme(@RequestBody MemeRequest request) {
-    MemeEntity saved = memeService.createMeme(request);
-    return new MemeResponse(saved.getId());
+  @PostMapping
+  public ResponseEntity<MemeEntity> createMeme(@RequestBody MemeEntity meme) {
+    MemeEntity saved = memeService.createMeme(meme);
+    return ResponseEntity.ok(saved);
   }
 
-  @GetMapping("/")
-  public List<MemeEntity> getMemes() {
-    return memeService.getLatestMemes();
+  @GetMapping
+  public ResponseEntity<List<MemeEntity>> getMemes() {
+    return ResponseEntity.ok(memeService.getLatestMemes());
   }
 
   @GetMapping("/{id}")
-  public MemeEntity getMeme(@PathVariable String id) {
-    return memeService.getMemeById(id);
+  public ResponseEntity<MemeEntity> getMeme(@PathVariable String id) {
+    return ResponseEntity.ok(memeService.getMemeById(id));
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deleteMeme(@PathVariable String id) {
+    memeService.deleteMeme(id);
+    return ResponseEntity.ok("Meme deleted successfully");
   }
 }
